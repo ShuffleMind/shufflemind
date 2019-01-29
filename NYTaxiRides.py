@@ -10,9 +10,6 @@ spark = SparkSession\
     .getOrCreate()
 
 def createParquet():
-    #setting log level
-    #log4jLogger = spark.sparkContext._jvm.org.apache.log4j
-    #log = log4jLogger.LogManager.getLogger("NYTaxiRides")
 
     try:
         #reading csv files
