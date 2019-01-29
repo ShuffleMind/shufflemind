@@ -22,13 +22,8 @@ def createParquet():
         
         print('Arquivo carregado ao dataframe com sucesso')
         
-        #criando a coluna de data para particionamento por data 
-        #df = df.withColumn("Date",from_unixtime(unix_timestamp('tpep_pickup_datetime','MM/dd/yyy')))
-        #df = df.withColumn("Year",year("Date"))
-        #df = df.withColumn("Month",month("Date"))
-        
-        try:
-            #iniciando a criação do 
+       try:
+            #iniciando a criação do arquivo em parquet
             print('Iniciando a criacao de arquivos em parquet')
             df.write.parquet('/home/jovyan/NY_TAXI_RIDES')#partitionBy("Year","Month")\
                 
@@ -47,6 +42,7 @@ def createParquet():
         raise
 
 def payment_method():
+    #metodo para criacao de dimensao de tipo de pagamentos
     print('Criando dimensao de tipo de pagamento ')
     dfPayment = dfPayment\
                 .withColumn("Payment_des", functions\
@@ -58,8 +54,10 @@ def payment_method():
                 .otherwise('VOIDED TRIP')
                 )
     dfPayment.write.parquet('/home/jovyan/NY_TAXI_RIDES'+'PAYMENT')
-   
-        
+          
 if __name__ == '__main__':
+    #fazendo a chamada do metodo de conversao dos dados para parquet
     createParquet()
+    
+    #fazendo a chamado do metodo de criacao de dimensao de tipo de pagamentos
     payment_method()
